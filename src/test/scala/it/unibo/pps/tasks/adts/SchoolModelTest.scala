@@ -11,7 +11,9 @@ class SchoolModelTest:
 
   private val john = teacher("John")
   private val math = course("Math")
+  private val physic = course("Physic")
   private val s1 = emptySchool.setTeacherToCourse(john, math)
+  private val s2 = s1.setTeacherToCourse(john, physic)
 
   @Test def testEmptySchool(): Unit =
     assertEquals(Nil(), emptySchool.courses)
@@ -34,3 +36,6 @@ class SchoolModelTest:
   @Test def testCourseNotPresent(): Unit =
     assertFalse:
       emptySchool.hasCourse("Math")
+
+  @Test def testNoDuplicatedTeachers(): Unit =
+    assertEquals(Cons("John", Nil()), s2.teachers)
