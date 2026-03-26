@@ -40,9 +40,8 @@ object Ex5Traversable:
   object AdvancedLogger extends Logger:
     def log[A](a: A): Unit = println("The next element is: " + a)
 
-  def logAll[T[_] : Traversable, A](t: T[A])(using logger: Logger): Unit = {
+  def logAll[T[_] : Traversable, A](t: T[A])(using logger: Logger): Unit =
     summon[Traversable[T]].forEach(t)(using logger.log)
-  }
 
   @main def testTraversable(): Unit =
     val s: Sequence[Int] = Cons(1, Cons(2, Nil()))
