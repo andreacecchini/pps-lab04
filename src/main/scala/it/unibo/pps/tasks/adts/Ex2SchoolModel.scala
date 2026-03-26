@@ -122,24 +122,29 @@ object SchoolModel:
       def hasCourse(name: String): Boolean
 
   object BasicSchoolModule extends SchoolModule:
-    opaque type School = Sequence[(Teacher, Sequence[Course])]
-    opaque type Teacher = Nothing
-    opaque type Course = Nothing
+    opaque type School = Sequence[(Teacher, Course)]
+    opaque type Teacher = TeacherImpl
+    opaque type Course = CourseImpl
 
+    private case class TeacherImpl(name: String)
 
-    def teacher(name: String): Teacher = ???
+    private case class CourseImpl(name: String)
 
-    def course(name: String): Course = ???
+    def teacher(name: String): Teacher = TeacherImpl(name)
+
+    def course(name: String): Course = CourseImpl(name)
 
     def emptySchool: School = Nil()
 
     extension (school: School)
       def courses: Sequence[String] = Nil()
       def teachers: Sequence[String] = Nil()
-      def setTeacherToCourse(teacher: Teacher, course: Course): School = ???
-      def coursesOfATeacher(teacher: Teacher): Sequence[Course] = ???
-      def hasTeacher(name: String): Boolean = ???
-      def hasCourse(name: String): Boolean = ???
+      def setTeacherToCourse(teacher: Teacher, course: Course): School =
+        Cons((teacher, course), school)
+      def coursesOfATeacher(teacher: Teacher): Sequence[Course] =
+        school.filter(_._1 == teacher).map(_._2)
+      def hasTeacher(name: String): Boolean = true
+      def hasCourse(name: String): Boolean = true
 
 @main def examples(): Unit =
   import SchoolModel.BasicSchoolModule.*
