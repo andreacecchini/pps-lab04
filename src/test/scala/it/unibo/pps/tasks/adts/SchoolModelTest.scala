@@ -9,16 +9,18 @@ class SchoolModelTest:
   val schoolModule: SchoolModule = BasicSchoolModule
   import schoolModule.*
 
-//  private val john = teacher("John")
-//  private val math = course("Math")
+  private val john = teacher("John")
+  private val math = course("Math")
+  private val s1 = emptySchool.setTeacherToCourse(john, math)
 
   @Test def testEmptySchool(): Unit =
     assertEquals(Nil(), emptySchool.courses)
     assertEquals(Nil(), emptySchool.teachers)
 
   @Test def testAddTeacher(): Unit =
-    val john = teacher("John")
-    val math = course("Math")
-    val s = emptySchool.setTeacherToCourse(john, math)
     assertTrue:
-      s.hasTeacher("John")
+      s1.hasTeacher("John")
+
+  @Test def testAddCourse(): Unit =
+    assertTrue:
+      s1.hasCourse("Math")
