@@ -40,6 +40,6 @@ class SchoolModelTest:
   @Test def testNoDuplicatedTeachers(): Unit =
     assertEquals(Cons("John", Nil()), s2.teachers)
 
-  @Test def testMultipleCoursesOnATeacher(): Unit =
+  @Test def testGetTeacherCourses(): Unit =
     assertEquals(Cons(math, Cons(physic, Nil())), s2.coursesOfATeacher(john))
     s2.coursesOfATeacher(john)
