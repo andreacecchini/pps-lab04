@@ -145,8 +145,13 @@ object SchoolModel:
         Cons((teacher, course), school)
       def coursesOfATeacher(teacher: Teacher): Sequence[Course] =
         school.filter(_.teacher == teacher).map(_.course)
-      def hasTeacher(name: String): Boolean = true
-      def hasCourse(name: String): Boolean = true
+      def hasTeacher(name: String): Boolean = school.teachers.filter(_ == name) match
+        case Cons(_, _) => true
+        case _ => false
+
+      def hasCourse(name: String): Boolean = school.courses.filter(_ == name) match
+        case Cons(_, _) => true
+        case _ => false
 
 @main def examples(): Unit =
   import SchoolModel.BasicSchoolModule.*

@@ -26,3 +26,11 @@ class SchoolModelTest:
     assertTrue:
       s1.hasCourse("Math")
     assertEquals(Cons("Math", Nil()), s1.courses)
+
+  @Test def testTeacherNotPresent(): Unit =
+    assertFalse:
+      emptySchool.hasTeacher("John")
+
+  @Test def testCourseNotPresent(): Unit =
+    assertFalse:
+      emptySchool.hasCourse("Math")
