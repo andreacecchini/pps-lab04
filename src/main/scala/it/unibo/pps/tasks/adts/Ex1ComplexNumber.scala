@@ -30,7 +30,7 @@ object Ex1ComplexNumbers:
       def re(): Double = c._1
       def im(): Double = c._2
       def sum(other: Complex): Complex = complex(c.re() + other.re(), c.im() + other.im())
-      def subtract(other: Complex): Complex = c.sum(-other.re(), -other.im())
+      def subtract(other: Complex): Complex = c.sum(complex(-other.re(), -other.im()))
       def asString(): String =
         val imFormat: Double => String = im => s"${im}i"
         c match
