@@ -41,6 +41,5 @@ class SchoolModelTest:
     assertEquals(Cons("John", Nil()), s2.teachers)
 
   @Test def testMultipleCoursesOnATeacher(): Unit =
-    val expectedCourses = Cons(math, physic, Nil()))
-    assertEquals(expectedCourses, s2.coursesOfATeacher(john))
+    assertEquals(Cons(math, Cons(physic, Nil())), s2.coursesOfATeacher(john))
     s2.coursesOfATeacher(john)
