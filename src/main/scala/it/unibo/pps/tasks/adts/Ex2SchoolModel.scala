@@ -2,6 +2,7 @@ package it.unibo.pps.tasks.adts
 
 import it.unibo.pps.u03.extensionmethods.Sequences.Sequence
 import Sequence.*
+import it.unibo.pps.u03.extensionmethods.Sequences
 import it.unibo.pps.u04.adts.SetADT
 
 /*  Exercise 2: 
@@ -130,6 +131,9 @@ object SchoolModel:
 
     private case class CourseImpl(name: String)
 
+    private def removeDuplicates[A](s: Sequence[A]): Sequence[A] =
+      SetADT.fromSequence(s).toSequence()
+
     def teacher(name: String): Teacher = TeacherImpl(name)
 
     def course(name: String): Course = CourseImpl(name)
@@ -137,14 +141,19 @@ object SchoolModel:
     def emptySchool: School = Nil()
 
     extension (school: School)
+
       def courses: Sequence[String] =
-        SetADT.fromSequence(school.map(_.course.name)).toSequence()
+        removeDuplicates(school.map(_.course.name))
+
       def teachers: Sequence[String] =
-        SetADT.fromSequence(school.map(_.teacher.name)).toSequence()
+        removeDuplicates(school.map(_.teacher.name))
+
       def setTeacherToCourse(teacher: Teacher, course: Course): School =
-        Cons((teacher, course), school)
+        Cons((teacher, course), school).reverse()
+
       def coursesOfATeacher(teacher: Teacher): Sequence[Course] =
-        school.filter(_.teacher == teacher).map(_.course)
+        removeDuplicates(school.filter(_.teacher == teacher).map(_.course))
+
       def hasTeacher(name: String): Boolean = school.teachers.filter(_ == name) match
         case Cons(_, _) => true
         case _ => false

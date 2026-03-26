@@ -1,5 +1,7 @@
 package it.unibo.pps.u03.extensionmethods
 
+import scala.annotation.tailrec
+
 object Sequences:
   
   enum Sequence[E]:
@@ -23,6 +25,14 @@ object Sequences:
         case Cons(h, t) if pred(h) => Cons(h, t.filter(pred))
         case Cons(_, t)            => t.filter(pred)
         case Nil()                 => Nil()
+
+      def reverse(): Sequence[A] =
+        @tailrec
+        def loop(remainder: Sequence[A], reversed: Sequence[A]): Sequence[A] = remainder match {
+          case Nil() => reversed
+          case Cons(h, t) => loop(t, Cons(h, reversed))
+        }
+        loop(l, Nil())
 
     def of[A](n: Int, a: A): Sequence[A] =
       if (n == 0) then Nil[A]() else Cons(a, of(n - 1, a))

@@ -39,3 +39,8 @@ class SchoolModelTest:
 
   @Test def testNoDuplicatedTeachers(): Unit =
     assertEquals(Cons("John", Nil()), s2.teachers)
+
+  @Test def testMultipleCoursesOnATeacher(): Unit =
+    val expectedCourses = Cons(course("Math"), Cons(course("Physic"), Nil()))
+    assertEquals(expectedCourses, s2.coursesOfATeacher(john))
+    s2.coursesOfATeacher(john)
