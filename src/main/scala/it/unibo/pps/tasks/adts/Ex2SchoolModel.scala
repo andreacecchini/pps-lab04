@@ -2,7 +2,7 @@ package it.unibo.pps.tasks.adts
 
 import it.unibo.pps.u03.extensionmethods.Sequences.Sequence
 import Sequence.*
-import it.unibo.pps.u02.Modules.Person.Teacher
+import it.unibo.pps.u04.adts.SetADT
 
 /*  Exercise 2: 
  *  Implement the below trait, and write a meaningful test.
@@ -122,7 +122,7 @@ object SchoolModel:
       def hasCourse(name: String): Boolean
 
   object BasicSchoolModule extends SchoolModule:
-    opaque type School = Sequence[(Teacher, Course)]
+    opaque type School = Sequence[(teacher: Teacher, course: Course)]
     opaque type Teacher = TeacherImpl
     opaque type Course = CourseImpl
 
@@ -137,12 +137,14 @@ object SchoolModel:
     def emptySchool: School = Nil()
 
     extension (school: School)
-      def courses: Sequence[String] = Nil()
-      def teachers: Sequence[String] = Nil()
+      def courses: Sequence[String] =
+        SetADT.fromSequence(school.map(_.course.name)).toSequence()
+      def teachers: Sequence[String] =
+        SetADT.fromSequence(school.map(_.teacher.name)).toSequence()
       def setTeacherToCourse(teacher: Teacher, course: Course): School =
         Cons((teacher, course), school)
       def coursesOfATeacher(teacher: Teacher): Sequence[Course] =
-        school.filter(_._1 == teacher).map(_._2)
+        school.filter(_.teacher == teacher).map(_.course)
       def hasTeacher(name: String): Boolean = true
       def hasCourse(name: String): Boolean = true
 

@@ -20,7 +20,9 @@ class SchoolModelTest:
   @Test def testAddTeacher(): Unit =
     assertTrue:
       s1.hasTeacher("John")
+    assertEquals(Cons("John", Nil()), s1.teachers)
 
   @Test def testAddCourse(): Unit =
     assertTrue:
       s1.hasCourse("Math")
+    assertEquals(Cons("Math", Nil()), s1.courses)
