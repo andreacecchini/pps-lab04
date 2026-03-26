@@ -2,7 +2,6 @@ package it.unibo.pps.tasks.adts
 
 import it.unibo.pps.u03.extensionmethods.Sequences.Sequence
 import Sequence.*
-import it.unibo.pps.u03.extensionmethods.Sequences
 import it.unibo.pps.u04.adts.SetADT
 
 /*  Exercise 2: 
@@ -155,12 +154,12 @@ object SchoolModel:
         removeDuplicates(school.filter(_.teacher == teacher).map(_.course))
 
       def hasTeacher(name: String): Boolean = school.teachers.filter(_ == name) match
-        case Cons(_, _) => true
-        case _ => false
+        case Nil() => false
+        case _ => true
 
       def hasCourse(name: String): Boolean = school.courses.filter(_ == name) match
-        case Cons(_, _) => true
-        case _ => false
+        case Nil() => false
+        case _ => true
 
 @main def examples(): Unit =
   import SchoolModel.BasicSchoolModule.*
